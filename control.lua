@@ -3,41 +3,60 @@ require "util"
 function ui()
 	for playerIndex, player in pairs(game.players) do
 		-- hide all emements
-		if player.gui.top.hideSpeed == nil then
-			player.gui.top.add{name = "hideSpeed", type = "button", caption = "Hide", width=80,style="sc_fentus_button"}
+		-- player.gui.top.hideSpeed = nil
+		-- player.gui.top.add{name = "hideSpeed", type = "button", caption = "Hide", width=80,style="sc_fentus_button"}
+		-- player.gui.top.decrease2 = nil 
+		-- player.gui.top.add{name = "decrease2", type = "button", caption = "<", style="sc_fentus_button"}
+		-- player.gui.top.decrease = nil 
+		-- player.gui.top.add{name = "decrease", type = "button", caption = "<<", style="sc_fentus_button"}
+		-- player.gui.top.decrease1 = nil 
+		-- player.gui.top.add{name = "decrease1", type = "button", caption = "<<<", style="sc_fentus_button"}
+		-- player.gui.top.display = nil 
+		-- player.gui.top.add{name = "display", type = "label", caption = "Speed "..tostring(format_num(game.speed,2,"x","")), style="fentus_label"}
+		-- -- Add a text box to factorio's speed slider
+		-- player.gui.top.display = nil 
+		-- player.gui.top.add{name = "display", type = "textfield", text = tostring(game.speed), style="fentus_textfield"}
+		-- player.gui.top.increase1 = nil
+		-- player.gui.top.add{name = "increase1", type = "button", caption = ">>>", style="sc_fentus_button"}
+		-- player.gui.top.increase = nil
+		-- player.gui.top.add{name = "increase", type = "button", caption = ">>", style="sc_fentus_button"}
+		-- player.gui.top.increase2 = nil
+		-- player.gui.top.add{name = "increase2", type = "button", caption = ">", style="sc_fentus_button"}
+
+		if isNotNil(player.gui.top.hideSpeed) then
+			player.gui.top.hideSpeed.destroy()
 		end
-		if player.gui.top.decrease2 == nil then
-			player.gui.top.add{name = "decrease2", type = "button", caption = "<", style="sc_fentus_button"}
+		if isNotNil(player.gui.top.decrease2) then
+			player.gui.top.decrease2.destroy()
+		end
+		if isNotNil(player.gui.top.decrease) then
+			player.gui.top.decrease.destroy()
+		end
+		if isNotNil(player.gui.top.decrease1) then
+			player.gui.top.decrease1.destroy()
+		end
+		if isNotNil(player.gui.top.display) then
+			player.gui.top.display.destroy()
+		end
+		if isNotNil(player.gui.top.increase1) then
+			player.gui.top.increase1.destroy()
+		end
+		if isNotNil(player.gui.top.increase) then
+			player.gui.top.increase.destroy()
+		end
+		if isNotNil(player.gui.top.increase2) then
+			player.gui.top.increase2.destroy()
 		end
 
-		if player.gui.top.decrease == nil then
-			player.gui.top.add{name = "decrease", type = "button", caption = "<<", style="sc_fentus_button"}
-		end
-
-		if player.gui.top.decrease1 == nil then
-			player.gui.top.add{name = "decrease1", type = "button", caption = "<<<", style="sc_fentus_button"}
-		end
-
-		-- if player.gui.top.display == nil then
-		-- 	player.gui.top.add{name = "display", type = "label", caption = "Speed "..tostring(format_num(game.speed,2,"x","")), style="fentus_label"}
-		-- end
-		-- Add a text box to factorio's speed slider
-		if player.gui.top.display == nil then
-			player.gui.top.add{name = "display", type = "textfield", text = tostring(game.speed), style="fentus_textfield"}
-		end
-
-
-		if player.gui.top.increase1 == nil then
-			player.gui.top.add{name = "increase1", type = "button", caption = ">>>", style="sc_fentus_button"}
-		end
-
-		if player.gui.top.increase == nil then
-			player.gui.top.add{name = "increase", type = "button", caption = ">>", style="sc_fentus_button"}
-		end
-
-		if player.gui.top.increase2 == nil then
-			player.gui.top.add{name = "increase2", type = "button", caption = ">", style="sc_fentus_button"}
-		end
+		
+		player.gui.top.add{name = "hideSpeed", type = "button", caption = "Hide", width=80,style="sc_fentus_button"}
+		player.gui.top.add{name = "decrease2", type = "button", caption = "<", style="sc_fentus_button"}
+		player.gui.top.add{name = "decrease", type = "button", caption = "<<", style="sc_fentus_button"}
+		player.gui.top.add{name = "decrease1", type = "button", caption = "<<<", style="sc_fentus_button"}
+		player.gui.top.add{name = "display", type = "textfield", text = tostring(game.speed), style="fentus_textfield"}
+		player.gui.top.add{name = "increase1", type = "button", caption = ">>>", style="sc_fentus_button"}
+		player.gui.top.add{name = "increase", type = "button", caption = ">>", style="sc_fentus_button"}
+		player.gui.top.add{name = "increase2", type = "button", caption = ">", style="sc_fentus_button"}
 	end
 end
 
@@ -219,6 +238,13 @@ function math.clamp(val, lower, upper)
 	end
 
     return math.max(lower, math.min(upper, val))
+end
+
+function isNotNil(value)
+	if value == nil then
+		return false
+	end
+	return true
 end
 
 script.on_event("decrease2", function(event) return speed(-0.1, false) end)
