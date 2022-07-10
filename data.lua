@@ -28,8 +28,8 @@ data.raw["gui-style"].default["sc_fentus_button"]  =
 	bottom_padding = 0,
 	left_padding = 0,
 
-	maximal_width = 35,
-	minimal_width = 35,
+	maximal_width = 50,
+	minimal_width = 10,
 
 	left_click_sound =
 	{

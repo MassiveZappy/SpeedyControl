@@ -2,6 +2,10 @@ require "util"
 
 function ui()
 	for playerIndex, player in pairs(game.players) do
+		-- hide all emements
+		if player.gui.top.hideSpeed == nil then
+			player.gui.top.add{name = "hideSpeed", type = "button", caption = "Hide", width=80,style="sc_fentus_button"}
+		end
 		if player.gui.top.decrease2 == nil then
 			player.gui.top.add{name = "decrease2", type = "button", caption = "<", style="sc_fentus_button"}
 		end
@@ -70,6 +74,33 @@ script.on_event(defines.events, function(event)
 
 		if event.element.name == "increase2" then
 			speed(0.1, false)
+		end
+		if event.element.name == "hideSpeed" then
+			
+			if event.element.caption == "Hide" then
+				event.element.caption = "Show"
+				for playerIndex, player in pairs(game.players) do
+					player.gui.top.decrease2.visible = false
+					player.gui.top.decrease.visible = false
+					player.gui.top.decrease1.visible = false
+					player.gui.top.display.visible = false
+					player.gui.top.increase1.visible = false
+					player.gui.top.increase.visible = false
+					player.gui.top.increase2.visible = false
+				end
+			else
+				event.element.caption = "Hide"
+				event.element.style = "sc_fentus_button"
+				for playerIndex, player in pairs(game.players) do
+					player.gui.top.decrease2.visible = true
+					player.gui.top.decrease.visible = true
+					player.gui.top.decrease1.visible = true
+					player.gui.top.display.visible = true
+					player.gui.top.increase1.visible = true
+					player.gui.top.increase.visible = true
+					player.gui.top.increase2.visible = true
+				end
+			end
 		end
 	end
 	--  on_gui_text_changed
