@@ -1,11 +1,11 @@
 {
   "name": "SpeedyControl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "factorio_version": "1.1",
   "title": "Speedy Control",
   "author": "MassiveZappy",
   "contact": "none",
   "homepage": "none",
   "dependencies": ["base >= 1.1"],
-  "description": "Forked from SpeedControl by Fentus/s2upidperson. Meme mod. TURN DOWN AUTOSAVE INTERVAL BEFORE USING!! I am not responsible for any progress lost via my mod."
+  "description": "Speed your world up to 10,00x time faster, or down to 0.1x speed. Computers, be warned! Slow down your autosave rate before hitting that boost. (Unless you don't want to for some odd... reason.)"
 }
