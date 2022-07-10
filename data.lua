@@ -41,9 +41,9 @@ data.raw["gui-style"].default["sc_fentus_button"]  =
 
 }
 
-data.raw["gui-style"].default["fentus_label"] =
+data.raw["gui-style"].default["fentus_textfield"] =
 {
-	type = "label_style",
+	type = "textbox_style",
 	font = "fentus_font",
 	font_color = {r = 0.2, g = 0.3, b = 1},
 	top_padding = 0,
