@@ -71,28 +71,30 @@ script.on_event(defines.events, function(event)
 
 	-- on_gui_click
 	if event.name == defines.events.on_gui_click then
+		-- get the list of server admins
+		local player = game.players[event.player_index]
 		if event.element.name == "decrease2" then
-			speed(-0.1, false)
+			speed(-0.1, false, player)
 		end
 
 		if event.element.name == "decrease" then
-			speed(-1, false)
+			speed(-1, false, player)
 		end
 
 		if event.element.name == "decrease1" then
-			speed(-10, false)
+			speed(-10, false, player)
 		end
 
 		if event.element.name == "increase1" then
-			speed(10, false)
+			speed(10, false, player)
 		end
 
 		if event.element.name == "increase" then
-			speed(1, false)
+			speed(1, false, player)
 		end
 
 		if event.element.name == "increase2" then
-			speed(0.1, false)
+			speed(0.1, false, player)
 		end
 		if event.element.name == "hideSpeed" then
 			
@@ -126,7 +128,7 @@ script.on_event(defines.events, function(event)
 	if event.name == defines.events.on_gui_text_changed then
 		if event.element.name == "display" then
 			-- wait a second
-			speed(parseTheString(event.element.text), true)
+			speed(parseTheString(event.element.text), true, game.players[event.player_index])
 		end
 	end
 end)
@@ -154,25 +156,30 @@ function parseTheString(s)
 	-- if the new sting is empty chat to the player that the number is invalid
 	if num == "" then
 		game.print("Invalid number!")
-		speed(1, true)
 		return 0
 	end
 	return tonumber(num)
 end
 
-function speed(adjust, dontUpdateTextBox)
-	if dontUpdateTextBox then
-    	game.speed = math.clamp(adjust, 0.1, 10000)
-	end
-	-- if dontUpdateTextBox is false then update the text box
-	if not dontUpdateTextBox then
-		game.speed = math.clamp(game.speed + adjust, 0.1, 10000)
-		for playerIndex, player in pairs(game.players) do
-			if player.gui.top.decrease then
-				player.gui.top.display.text = tostring(game.speed)
-			end
+function speed(adjust, dontUpdateTextBox, player)
+	-- if the player running this mod is an admin then allow them to change the speed
+	if player.admin then
+		if dontUpdateTextBox then
+			game.speed = math.clamp(adjust, 0.1, 10000)
 		end
-	end 
+		-- if dontUpdateTextBox is false then update the text box
+		if not dontUpdateTextBox then
+			game.speed = math.clamp(game.speed + adjust, 0.1, 10000)
+			for playerIndex, player in pairs(game.players) do
+				if player.gui.top.decrease then
+					player.gui.top.display.text = tostring(game.speed)
+				end
+			end
+		end 
+	else
+		game.print("You are not an admin "..player.name.."!")
+		game.print("You are not allowed to change the speed "..player.name.."!")
+	end
 
 	-- for playerIndex, player in pairs(game.players) do
 	-- 	if player.gui.top.decrease then
@@ -246,10 +253,9 @@ function isNotNil(value)
 	end
 	return true
 end
-
-script.on_event("decrease2", function(event) return speed(-0.1, false) end)
-script.on_event("decrease", function(event) return speed(-1, false) end)
-script.on_event("decrease1", function(event) return speed(-10, false) end)
-script.on_event("increase1", function(event) return speed(10, false) end)
-script.on_event("increase", function(event) return speed(1, false) end)
-script.on_event("increase2", function(event) return speed(0.1, false) end)
+script.on_event("decrease2", function(event) return speed(-0.1, false, game.players[event.player_index]) end)
+script.on_event("decrease", function(event) return speed(-1, false, game.players[event.player_index]) end)
+script.on_event("decrease1", function(event) return speed(-10, false, game.players[event.player_index]) end)
+script.on_event("increase1", function(event) return speed(10, false, game.players[event.player_index]) end)
+script.on_event("increase", function(event) return speed(1, false, game.players[event.player_index]) end)
+script.on_event("increase2", function(event) return speed(0.1, false, game.players[event.player_index]) end)
